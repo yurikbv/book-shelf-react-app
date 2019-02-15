@@ -5,13 +5,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node server/server.js",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "engines": {
     "node": "10.15.1"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
