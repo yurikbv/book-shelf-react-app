@@ -5,10 +5,8 @@ const BookItem = (item) => {
 
   let count = (review,overflow) => {
     if(overflow) {
-      let itemHomeReview = review.split(' ');
-      itemHomeReview.length = 30;
-      itemHomeReview = itemHomeReview.join(' ');
-      return `${itemHomeReview}...`;
+      review = review.substr(0,300);
+      return `${review}...`;
     }
     return review;
   };
@@ -16,7 +14,7 @@ const BookItem = (item) => {
   return (
     <Link to={`/books/${item._id}`} className="book_item">
       <div className="book_cover">
-        <img src={`images/${item.cover}`} alt={item.name}/>
+        <img src={`/images/${item.cover}`} alt={item.name}/>
       </div>
       <div className="book_container">
         <div className="book_header">

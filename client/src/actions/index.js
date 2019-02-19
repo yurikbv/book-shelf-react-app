@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-export function getBooks(
-  limit = 10,
-  start = 0,
-  order = 'asc',
-  list = ''
-) {
+//*=================BOOK=================*//
+
+export function getBooks(limit = 10, start = 0, order = 'asc', list = '') {
   const request = axios.get(`/api/getBooks?limit=${limit}&skip=${start}&order=${order}`)
     .then(response => {
       if(list) {
@@ -39,5 +36,35 @@ export function getBookWithReviewer(id) {
           })
         });
     })
+  }
+}
+
+export function clearBookWithReviewer() {
+  return {
+    type: 'CLEAR_BOOK_W_REV',
+    payload: {
+      book: {},
+      reviewer: {}
+    }
+  }
+}
+
+//*=================USER=================*//
+
+export function loginUser({email, password}) {
+  const request = axios.post(`/api/login`,{email,password})
+    .then(response => response.data);
+  return {
+    type: 'USER_LOGIN',
+    payload: request
+  }
+}
+
+export function auth() {
+  const request = axios.get('/api/auth')
+    .then(response => response.data);
+  return {
+    type:'USER_AUTH',
+    payload: request
   }
 }
