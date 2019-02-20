@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const fileUpload = require("express-fileupload");
 const mongoose = require('mongoose');
 
 const config = require('./config/config').get(process.env.NODE_ENV);
@@ -16,7 +17,7 @@ const { auth } = require('./middleware/auth');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+app.use(fileUpload());
 //GET
 
 app.get('/api/auth',auth,(req,res) => {

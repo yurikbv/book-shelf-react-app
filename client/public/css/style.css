@@ -195,6 +195,7 @@ header .navItem span {
     border: none;
     margin-top: 20px;
     width: 260px;
+    cursor: pointer;
 }
 .rl_container.article button {
     width: 80%;
@@ -233,6 +234,7 @@ header .navItem span {
     width: 80%;
     box-sizing: border-box;
     display: inline-block;
+    cursor: pointer;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -310,13 +312,13 @@ tr:nth-child(even) {
 
 .br_container .br_image {
     text-align: center;
-    margin-bottom: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .br_container .br_image img{
     text-align: center;
     max-height: 80vh;
-    box-shadow: 5px 5px 10px 5px #3c3c3c;
 }
 
 .br_container .br_header {
@@ -443,7 +445,7 @@ tr:nth-child(even) {
     border-radius: 0 10.2em 10.2em 0;
     top: -0.1em;
     left: 5.1em;
-    -webkit-transform-origin: 0px 5.1em;
+    -webkit-transform-origin: 0 5.1em;
     transform-origin: 0 5.1em;
     -webkit-animation: load2 2s infinite ease;
     animation: load2 2s infinite ease;

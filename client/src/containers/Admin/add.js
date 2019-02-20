@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { addBook, clearNewBook } from "../../actions";
 
 class AddBook extends Component {
 
@@ -15,20 +18,43 @@ class AddBook extends Component {
   };
 
   handleInput = (event,name) => {
-    // console.dir(event.target.type);
     const newFormData = {...this.state.formData,};
-    if(event.target.type === 'file') {
-      newFormData[name] = event.target.files[0];
-    } else newFormData[name] = event.target.value;
+    newFormData[name] = event.target.value;
     this.setState({
       formData: newFormData
     })
   };
 
+  handleImage = (event) => {
+    const newFormData = {...this.state.formData,};
+    newFormData.cover = event.target.files[0].name;
+    this.setState({
+      formData: newFormData,
+    })
+  };
+
+  showNewBook = (book) => (
+    book.post ?
+      <div className="conf_link">
+        Okay!!! <Link to={`/books/${book.bookId}`}>
+          Click to see the Post
+        </Link>
+      </div>
+      : null
+  );
+
   submitForm = (event) => {
     event.preventDefault();
-    console.log(this.state.formData)
+    this.props.dispatch(addBook({
+      ...this.state.formData,
+      ownerId: this.props.user.login.id,
+      price: `${this.state.formData.price}$`
+    }))
   };
+
+  componentWillUnmount() {
+    this.props.dispatch(clearNewBook())
+  }
 
   render() {
     return (
@@ -46,7 +72,7 @@ class AddBook extends Component {
           <div className="form_element">
             <input
               type="text"
-              placeholder="Enter name"
+              placeholder="Enter author"
               value={this.state.formData.author}
               onChange={(event) => this.handleInput(event,'author')}
             />
@@ -55,12 +81,23 @@ class AddBook extends Component {
             <input
               type="file"
               accept="image/*"
-              onChange={(event) => this.handleInput(event,'cover')}
+              onChange={(event) => this.handleImage(event)}
             />
           </div>
+          {
+            this.state.formData.cover ?
+              <div style={{textAlign: "center"}}>
+                <img
+                  style={{width: "200px"}}
+                  src={`/images/${this.state.formData.cover}`}
+                  alt={this.state.formData.author}/>
+              </div>
+              : null
+          }
           <textarea
             value={this.state.formData.review}
             onChange={(event) => this.handleInput(event,'review')}
+            rows="10"
           />
           <div className="form_element">
             <input
@@ -72,7 +109,7 @@ class AddBook extends Component {
           </div>
           <div className="form_element">
             <input
-              type="number"
+              type="text"
               placeholder="Enter price"
               value={this.state.formData.price}
               onChange={(event) => this.handleInput(event,'price')}
@@ -87,10 +124,21 @@ class AddBook extends Component {
             />
           </div>
           <button type="submit">Add review</button>
+          {
+            this.props.books.newBook ?
+              this.showNewBook(this.props.books.newBook)
+              : null
+          }
         </form>
       </div>
     );
   }
 }
 
-export default AddBook;
+function mapStateToProps(state) {
+  return {
+    books: state.books
+  }
+}
+
+export default connect(mapStateToProps)(AddBook);

@@ -11,7 +11,6 @@ const bookSchema = mongoose.Schema({
   },
   cover:{
     type:String,
-    data: Buffer,
     default: 'n/a'
   },
   review:{
