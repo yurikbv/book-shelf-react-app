@@ -22,7 +22,7 @@ const Routes = () => {
         <Route path='/user/logout' exact component={Auth(Logout,true)}/>
         <Route path='/login' exact component={Auth(Login,false)}/>
         <Route path='/user/register' exact component={Auth(Register,true)}/>
-        <Route path='/user/add' exact component={Auth(AddReview,null)}/>
+        <Route path='/user/add' exact component={Auth(AddReview,true)}/>
         <Route path='/user/edit-post/:id' exact component={Auth(EditReview,true)}/>
         <Route path='/user/user-reviews' exact component={Auth(UserPosts,null)}/>
         <Route path='/books/:id' exact component={Auth(BookView,null)}/>
