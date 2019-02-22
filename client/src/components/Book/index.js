@@ -5,7 +5,7 @@ import {getBookWithReviewer, clearBookWithReviewer} from "../../actions";
 class BookView extends Component {
 
   componentWillMount() {
-    this.props.dispatch(getBookWithReviewer(this.props.match.params.id))
+    this.props.dispatch(getBookWithReviewer(this.props.match.params.id));
   }
 
   componentWillUnmount() {
