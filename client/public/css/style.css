@@ -78,7 +78,7 @@ header .navItem span {
 }
 
 .book_cover img{
-    max-height: 200px;
+    max-width: 100px;
 }
 
 .book_item .book_header h2 {
