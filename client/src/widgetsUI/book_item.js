@@ -6,7 +6,8 @@ const BookItem = (item) => {
   let count = (review,overflow) => {
     if(overflow) {
       let screen = window.innerWidth;
-      let count = screen > 1200 ? 500 : screen < 1200 && screen > 768 ? 300 : screen < 768 && screen > 480 ? 200 : 80;
+      let count = screen > 1600 ? 800 : screen > 1200 && screen < 1600 ? 500 : screen < 1200 && screen > 768
+        ? 300 : screen < 768 && screen > 480 ? 200 : 80;
       review = review.substr(0,count);
       return `${review}...`;
     }

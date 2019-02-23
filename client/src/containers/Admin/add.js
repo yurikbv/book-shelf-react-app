@@ -123,12 +123,12 @@ class AddBook extends Component {
               onChange={(event) => this.handleInput(event,'rating')}
             />
           </div>
-          <button type="submit">Add review</button>
           {
             this.props.books.newBook ?
               this.showNewBook(this.props.books.newBook)
               : null
           }
+          <button type="submit">Add review</button>
         </form>
       </div>
     );
