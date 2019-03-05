@@ -1,11 +1,28 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {Link} from "react-router-dom";
 
-const BookItem = (item) => {
+class BookItem extends Component {
+  state = {
+    width: window.innerWidth
+  };
 
-  let count = (review,overflow) => {
+  componentDidMount() {
+    window.addEventListener('resize',this.onResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize',this.onResize);
+  }
+
+  onResize = () => {
+    this.setState({
+      width: window.innerWidth
+    })
+  };
+
+  count = (review,overflow) => {
     if(overflow) {
-      let screen = window.innerWidth;
+      let screen = this.state.width;
       let count = screen > 1600 ? 1800 : screen > 1200 && screen < 1600 ? 500 : screen < 1200 && screen > 768
         ? 300 : screen < 768 && screen > 480 ? 200 : 80;
       review = review.substring(0,count);
@@ -14,31 +31,36 @@ const BookItem = (item) => {
     return review;
   };
 
-  return (
-    <Link to={`/books/${item._id}`} className="book_item">
-      <div className="book_cover">
-        <img src={`/images/${item.cover}`} alt={item.name}/>
-      </div>
-      <div className="book_container">
-        <div className="book_header">
-          <h2>{item.name}</h2>
+  render() {
+
+    const {_id,cover,name,author,price,pages,rating,review,overflow} = this.props;
+
+    return (
+      <Link to={`/books/${_id}`} className="book_item">
+        <div className="book_cover">
+          <img src={`/images/${cover}`} alt={name}/>
         </div>
-        <div className="book_items">
-          <div className="book_author">{item.author}</div>
-          <div className="book_bubble">
-            <strong>Price</strong> {item.price}
+        <div className="book_container">
+          <div className="book_header">
+            <h2>{name}</h2>
           </div>
-          <div className="book_bubble">
-            <strong>Pages</strong> {item.pages}
+          <div className="book_items">
+            <div className="book_author">{author}</div>
+            <div className="book_bubble">
+              <strong>Price</strong> {price}
+            </div>
+            <div className="book_bubble">
+              <strong>Pages</strong> {pages}
+            </div>
+            <div className="book_bubble rating">
+              <strong>Rating</strong> {rating}
+            </div>
+            <p className="book_review">{this.count(review,overflow)}</p>
           </div>
-          <div className="book_bubble rating">
-            <strong>Rating</strong> {item.rating}
-          </div>
-          <p className="book_review">{count(item.review,item.overflow)}</p>
         </div>
-      </div>
-    </Link>
-  );
-};
+      </Link>
+    );
+  }
+}
 
 export default BookItem;
